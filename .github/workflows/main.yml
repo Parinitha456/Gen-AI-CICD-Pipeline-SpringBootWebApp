@@ -6,6 +6,7 @@ on:
     branches:
       - master
 env:
+  SONAR_TOKEN: '75621cba6337eff300a0b42e8d68eb9d4cdbe709'
   SONAR_HOST_URL: 'http://brillioonesonar.eastus.cloudapp.azure.com:9000'
   projectKey : 'GenAISonarQubeTesting'
   projectName: 'GenAISonarQubeTesting'
@@ -43,7 +44,7 @@ jobs:
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v1.2.0
         with:
-          SONAR_TOKEN: ${{secrets.SONAR_TOKEN }}
+          SONAR_TOKEN: ${{env.SONAR_TOKEN }}
           projectKey: ${{ env.projectKey }}
           projectName: ${{ env.projectName }}
           SONAR_HOST_URL: ${{ env.SONAR_HOST_URL }}
