@@ -1,0 +1,62 @@
+name: CI Pipeline
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: 11
+          distribution: 'temurin'
+
+      - name: Build with Maven
+        run: mvn clean package
+
+      - name: Run Tests
+        run: mvn test
+
+  sonarqube:
+    name: SonarQube Analysis
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v1
+        with:
+          token: ${{ secrets.SONARQUBE_TOKEN }}
+          projectKey: GenAISonarQubeTesting
+          projectName: GenAISonarQubeTesting
+          serverUrl: http://brillioonesonar.eastus.cloudapp.azure.com:9000
+
+  publish:
+    name: Publish Artifacts
+    needs: [build, sonarqube]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Publish Artifacts to Azure Artifacts
+        run: |
+          # Replace <your-feed> with your actual feed name
+          # Replace <your-package-name> with the package name
+          echo "PACKAGE_VERSION=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
+          echo "::set-env name=PACKAGE_VERSION::$PACKAGE_VERSION"
+          echo "::set-output name=PACKAGE_VERSION::$PACKAGE_VERSION"
+          echo "##vso[artifact.upload containerfolder=artifactstaging;artifactname=drop]./target/*.jar"
