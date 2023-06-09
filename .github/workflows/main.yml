@@ -6,7 +6,7 @@ on:
     branches:
       - master
 env:
-  serverUrl: 'http://brillioonesonar.eastus.cloudapp.azure.com:9000'
+  SONAR_HOST_URL: 'http://brillioonesonar.eastus.cloudapp.azure.com:9000'
   projectKey : 'GenAISonarQubeTesting'
   projectName: 'GenAISonarQubeTesting'
 
@@ -46,7 +46,7 @@ jobs:
           token: ${{secrets.SONAR_TOKEN }}
           projectKey: ${{ env.projectKey }}
           projectName: ${{ env.projectName }}
-          serverUrl: ${{ env.serverUrl }}
+          SONAR_HOST_URL: ${{ env.SONAR_HOST_URL }}
 
   publish:
     name: Publish Artifacts
