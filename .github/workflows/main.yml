@@ -27,6 +27,12 @@ jobs:
 
       - name: Build with Maven
         run: mvn clean package
+        
+      - name: Files
+        run: |
+          pwd
+          ls
+          
 
       - name: Run Tests
         run: mvn test
