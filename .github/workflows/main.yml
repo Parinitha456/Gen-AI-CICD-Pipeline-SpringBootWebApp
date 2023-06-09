@@ -64,7 +64,13 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-
+      - name: Searching Artifacts
+        run: |
+          pwd
+          ls
+          cd target
+          ls
+          
       - name: Publish Build Artifacts
         uses: actions/upload-artifact@v2
         with:
