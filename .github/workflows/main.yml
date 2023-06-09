@@ -44,9 +44,9 @@ jobs:
         uses: SonarSource/sonarqube-scan-action@v1.2.0
         with:
           token: ${{secrets.SONARQUBE_TOKEN }}
-          projectKey: ${{ env.projectKey }
-          projectName: ${{ env.projectName }
-          serverUrl: ${{ env.serverUrl }
+          projectKey: ${{ env.projectKey }}
+          projectName: ${{ env.projectName }}
+          serverUrl: ${{ env.serverUrl }}
 
   publish:
     name: Publish Artifacts
