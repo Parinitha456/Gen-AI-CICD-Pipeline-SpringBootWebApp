@@ -32,6 +32,8 @@ jobs:
         run: |
           pwd
           ls
+          cd target
+          ls
           
 
       - name: Run Tests
