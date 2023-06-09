@@ -65,11 +65,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Publish Artifacts to Azure Artifacts
-        run: |
-          # Replace <your-feed> with your actual feed name
-          # Replace <your-package-name> with the package name
-          echo "PACKAGE_VERSION=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
-          echo "::set-env name=PACKAGE_VERSION::$PACKAGE_VERSION"
-          echo "::set-output name=PACKAGE_VERSION::$PACKAGE_VERSION"
-          echo "##vso[artifact.upload containerfolder=artifactstaging;artifactname=drop]./target/*.jar"
+      - name: Publish Build Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-artifacts
+          path: ./target/*.jar
