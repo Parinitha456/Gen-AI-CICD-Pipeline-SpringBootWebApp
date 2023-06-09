@@ -28,16 +28,14 @@ jobs:
       - name: Build with Maven
         run: mvn clean package
         
-      - name: Files
-        run: |
-          pwd
-          ls
-          cd target
-          ls
-          
-
       - name: Run Tests
         run: mvn test
+        
+      - name: Publish Build Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-artifacts
+          path: target/*.jar
 
   sonarqube:
     name: SonarQube Analysis
@@ -55,24 +53,3 @@ jobs:
           projectKey: ${{ env.sonar.projectKey }}
           projectName: ${{ env.sonar.projectName }}
           SONAR_HOST_URL: ${{ env.SONAR_HOST_URL }}
-
-  publish:
-    name: Publish Artifacts
-    needs: [build, sonarqube]
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Searching Artifacts
-        run: |
-          pwd
-          ls
-          cd target
-          ls
-          
-      - name: Publish Build Artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: build-artifacts
-          path: target/*.jar
