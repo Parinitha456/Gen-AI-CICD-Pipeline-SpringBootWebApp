@@ -12,6 +12,9 @@ COPY pom.xml .
 
 # Copy the source code to the working directory
 COPY src ./src
+
+RUN mvn clean package
+
 RUN ls
 RUN cd target
 RUN ls
