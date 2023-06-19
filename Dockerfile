@@ -10,5 +10,5 @@ COPY pom.xml .
 COPY src ./src
 RUN mvn clean package
 # Set the entry point for the container
-COPY /app/ServicesBolt/target/*.jar api.jar
+COPY /app/target/*.jar api.jar
 CMD java -jar /api.jar
