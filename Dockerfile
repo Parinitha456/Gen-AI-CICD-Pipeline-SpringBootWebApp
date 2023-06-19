@@ -11,7 +11,7 @@ COPY pom.xml .
 COPY src ./src
 
 # Build the application with Maven
-RUN ./mvnw package -DskipTests
+RUN mvn clean package
 
 # Set the entry point for the container
 ENTRYPOINT ["java", "-jar", "target/*.jar"]
