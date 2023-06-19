@@ -13,10 +13,5 @@ COPY pom.xml .
 # Copy the source code to the working directory
 COPY src ./src
 
-# Build the application with Maven
-RUN mvn clean package
-
-RUN ls
-
 # Set the entry point for the container
 ENTRYPOINT ["java", "-jar", "target/*.jar"]
