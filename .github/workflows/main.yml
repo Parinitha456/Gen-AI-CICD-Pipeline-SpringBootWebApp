@@ -4,12 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - master
-env:
-  SONAR_TOKEN: '75621cba6337eff300a0b42e8d68eb9d4cdbe709'
-  SONAR_HOST_URL: 'http://brillioonesonar.eastus.cloudapp.azure.com:9000'
-  
-
+      - manualTrigger
 jobs:
   build:
     name: Build and Test
@@ -31,25 +26,5 @@ jobs:
       - name: Run Tests
         run: mvn test
         
-      - name: Publish Build Artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: build-artifacts
-          path: target/*.jar
-
-  sonarqube:
-    name: SonarQube Analysis
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v1.2.0
-        with:
-          SONAR_TOKEN: ${{env.SONAR_TOKEN }}
-          projectKey: ${{ env.sonar.projectKey }}
-          projectName: ${{ env.sonar.projectName }}
-          SONAR_HOST_URL: ${{ env.SONAR_HOST_URL }}
+      - name: Docker build
+        run: docker build -t Gen-AI-CICD-Pipeline-SpringBootWebApp .
