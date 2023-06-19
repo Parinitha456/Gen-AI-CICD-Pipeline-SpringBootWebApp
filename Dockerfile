@@ -17,4 +17,4 @@ RUN cd target
 RUN ls
 
 # Set the entry point for the container
-ENTRYPOINT ["java", "-jar", "target/*.jar"]
+ENTRYPOINT ["java", "-jar", "target/spring-boot-web-0.0.1-SNAPSHOT.jar.jar"]
