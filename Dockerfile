@@ -13,5 +13,5 @@ RUN ls
 RUN cd target && ls
 
 # Set the entry point for the container
-COPY /app/target/*.jar api.jar
+COPY /target/spring-boot-web-0.0.1-SNAPSHOT.jar api.jar
 CMD java -jar /api.jar
