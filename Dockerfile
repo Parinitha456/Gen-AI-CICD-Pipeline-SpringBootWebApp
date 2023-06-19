@@ -12,6 +12,9 @@ COPY pom.xml .
 
 # Copy the source code to the working directory
 COPY src ./src
+RUN ls
+RUN cd target
+RUN ls
 
 # Set the entry point for the container
 ENTRYPOINT ["java", "-jar", "target/*.jar"]
