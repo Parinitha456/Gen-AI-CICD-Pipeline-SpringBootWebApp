@@ -8,7 +8,9 @@ on:
 jobs:
   build:
     name: Build and Test
-    runs-on: ubuntu-latest
+    runs-on: 
+      - self-hosted
+      - label-1
 
     steps:
       - name: Checkout repository
@@ -28,3 +30,7 @@ jobs:
         
       - name: Docker build
         run: docker build -t gen-ai-cicd-pipeline-springbootwebapp .
+      
+      - name: Docker run
+        run: docker run -p 8080:8080 gen-ai-cicd-pipeline-springbootwebapp
+
