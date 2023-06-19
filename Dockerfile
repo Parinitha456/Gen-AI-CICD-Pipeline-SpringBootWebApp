@@ -1,6 +1,9 @@
 # Use the official OpenJDK image as the base image
 FROM openjdk:11-jdk
 
+# Install Maven
+RUN apt-get update && apt-get install -y maven
+
 # Set the working directory inside the container
 WORKDIR /app
 
@@ -11,7 +14,7 @@ COPY pom.xml .
 COPY src ./src
 
 # Build the application with Maven
-RUN ./mvnw package -DskipTests
+RUN mvn clean package
 
 # Set the entry point for the container
 ENTRYPOINT ["java", "-jar", "target/*.jar"]
